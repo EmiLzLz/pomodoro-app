@@ -1,0 +1,8 @@
+export interface Session {
+  id: string;
+  duration: number;
+  tag: string;
+  completedAt: string;
+  type: "work" | "short-break" | "long-break";
+  pomodorCount: number;
+}
