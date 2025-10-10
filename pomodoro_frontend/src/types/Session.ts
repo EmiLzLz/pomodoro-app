@@ -4,5 +4,5 @@ export interface Session {
   tag: string;
   completedAt: string;
   type: "work" | "short-break" | "long-break";
-  pomodorCount: number;
+  pomodoroCount: number;
 }
