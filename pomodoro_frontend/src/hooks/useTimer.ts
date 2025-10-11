@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 export function useTimer() {
   const [timeLeft, setTimeLeft] = useState(25 * 60);
   const [isRunning, setIsRunning] = useState(false);
-  const [mode, setMode] = useState("work");
+  const [mode, setMode] = useState<"work" | "short-break" | "long-break">(
+    "work"
+  );
   const [pomodoroCount, setPomodoroCount] = useState(0);
   const [sessionCompleted, setSessionCompleted] = useState(false);
 
