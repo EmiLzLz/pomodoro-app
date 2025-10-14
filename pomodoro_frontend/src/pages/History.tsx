@@ -6,7 +6,6 @@ import type { Tag } from "../types/Tag";
 import type { DateRange } from "../types/DateRange";
 import FilterBar from "../components/FilterBar";
 import SessionsList from "../components/SessionsList";
-import { Tag } from "lucide-react";
 
 function History() {
   const [sessions, setSessions] = useState<Session[]>([]);
