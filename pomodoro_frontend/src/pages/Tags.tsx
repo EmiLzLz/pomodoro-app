@@ -69,9 +69,6 @@ function Tags() {
     <div className="max-w-2xl mx-auto p-4">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-semibold">Tags</h2>
-
-        {/* Si TagList tiene su propio botón "New", puedes pasarle onCreate.
-            También mostramos aquí el botón principal que abre el form. */}
         <button
           onClick={() => {
             setEditingTag(null);
@@ -83,13 +80,8 @@ function Tags() {
         </button>
       </div>
 
-      {/* Mostrar form para crear o editar */}
       {showForm && (
         <div className="mb-4">
-          {/* 
-            Nota: TagForm en esta implementación se usa tanto para create como para edit.
-            Le pasamos valores iniciales si estamos editando (editingTag).
-          */}
           <TagForm
             initialName={editingTag?.name}
             initialColor={editingTag?.color}
