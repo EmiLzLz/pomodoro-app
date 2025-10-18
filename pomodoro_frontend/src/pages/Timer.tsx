@@ -27,15 +27,14 @@ function Timer() {
   const seconds = timeLeft % 60;
   const formatted = `${minutes}:${seconds.toString().padStart(2, "0")}`;
 
-  // Calcular el progreso basado en el modo
   const getTotalTime = () => {
     switch (mode) {
       case "work":
-        return 25 * 60; // 25 minutos en segundos
+        return 25 * 60;
       case "short-break":
-        return 5 * 60; // 5 minutos en segundos
+        return 5 * 60;
       case "long-break":
-        return 15 * 60; // 15 minutos en segundos
+        return 15 * 60;
       default:
         return 25 * 60;
     }
@@ -43,6 +42,19 @@ function Timer() {
 
   const totalTime = getTotalTime();
   const progress = ((totalTime - timeLeft) / totalTime) * 100;
+
+  const getModeDisplay = () => {
+    switch (mode) {
+      case "work":
+        return "WORK";
+      case "short-break":
+        return "SHORT BREAK";
+      case "long-break":
+        return "LONG BREAK";
+      default:
+        return "WORK";
+    }
+  };
 
   useEffect(() => {
     if (sessionCompleted) {
@@ -58,39 +70,58 @@ function Timer() {
       };
       saveSession();
     }
-  }, [sessionCompleted]);
+  }, [
+    sessionCompleted,
+    selectedTag,
+    mode,
+    pomodoroCount,
+    clearSessionCompleted,
+  ]);
 
   useEffect(() => {
     getTags().then(setTags);
   }, []);
 
   return (
-    <div className="timer-container">
-      <h1>Timer</h1>
+    <main className="timer-page w-full h-full flex items-center justify-center px-4 py-8">
+      <div className="timer-content-wrapper w-full max-w-2xl flex flex-col items-center gap-6">
+        {/* Pomodoro Count */}
+        <h1
+          className="pomodoro-count-title text-gray-800 font-semibold"
+          style={{ fontSize: "28px", fontFamily: "Inter, sans-serif" }}
+        >
+          Pomodoro {pomodoroCount} of 4
+        </h1>
 
-      <TimerDisplay
-        formatted={formatted}
-        isRunning={isRunning}
-        onStart={start}
-        onPause={pause}
-        onReset={reset}
-        progress={progress}
-      />
+        {/* Timer Display */}
+        <TimerDisplay
+          formatted={formatted}
+          isRunning={isRunning}
+          onStart={start}
+          onPause={pause}
+          onReset={reset}
+          progress={progress}
+        />
 
-      <TagSelector
-        tags={tags}
-        selectedTag={selectedTag}
-        onChange={setSelectedTag}
-      />
+        {/* Tag Selector */}
+        <TagSelector
+          tags={tags}
+          selectedTag={selectedTag}
+          onChange={setSelectedTag}
+        />
 
-      <div className="pomodoro-count">
-        <h6>Pomodoro {pomodoroCount} of 4</h6>
+        {/* Mode Badge */}
+        <div className="mode-badge inline-flex items-center gap-2 px-5 py-2 bg-white/60 backdrop-blur-sm border border-[#004F59]/20 rounded-full shadow-sm">
+          <span className="mode-indicator w-2 h-2 rounded-full bg-[#004F59] animate-pulse" />
+          <p
+            className="mode-text text-[#004F59] font-semibold text-sm tracking-wide uppercase"
+            style={{ fontFamily: "Inter, sans-serif" }}
+          >
+            {getModeDisplay()}
+          </p>
+        </div>
       </div>
-
-      <div className="mode-info">
-        <p>{mode}</p>
-      </div>
-    </div>
+    </main>
   );
 }
 

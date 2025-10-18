@@ -1,17 +1,34 @@
 @import "tailwindcss";
 
-
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@400;500;600&display=swap");
 
 .timer-glass-circle {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  box-shadow: 
-    0 8px 32px 0 rgba(31, 38, 135, 0.37),
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37),
     inset 0 0 0 1px rgba(255, 255, 255, 0.18);
 }
 
 .timer-progress-stroke {
   filter: drop-shadow(0 0 8px rgba(0, 188, 212, 0.4));
+}
+
+/* AnimatedBackgroud */
+/* App.css o index.css */
+@keyframes blob {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+}
+
+.animate-blob {
+  animation: blob 20s ease-in-out infinite;
 }

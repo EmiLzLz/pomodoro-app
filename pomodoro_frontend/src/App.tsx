@@ -6,14 +6,21 @@ import Tags from "./pages/Tags";
 import History from "./pages/History";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
+import AnimatedBackground from "./components/AnimatedBackground";
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="flex">
+      <div className="app-container flex min-h-screen relative">
+        {/* Background animado */}
+        <AnimatedBackground />
+
+        {/* Sidebar */}
         <Sidebar />
-        <main className="ml-[60px] flex-1 min-h-screen flex flex-col">
-          <div className="flex-1">
+
+        {/* Main Content */}
+        <div className="main-wrapper flex-1 flex flex-col ml-0 md:ml-20">
+          <div className="content-area flex-1">
             <Routes>
               <Route path="/" element={<Navigate to="/timer" replace />} />
               <Route path="/timer" element={<Timer />} />
@@ -22,8 +29,10 @@ function App() {
               <Route path="/history" element={<History />} />
             </Routes>
           </div>
+
+          {/* Footer */}
           <Footer />
-        </main>
+        </div>
       </div>
     </BrowserRouter>
   );
