@@ -1,4 +1,7 @@
+// Tags.tsx
 import React, { useEffect, useState } from "react";
+import Icon from "@mdi/react";
+import { mdiPlus } from "@mdi/js";
 import TagsList from "../components/TagsList";
 import TagForm from "../components/TagForm";
 import type { Tag } from "../types/Tag";
@@ -12,7 +15,6 @@ import {
 function Tags() {
   const [tags, setTags] = useState<Tag[]>([]);
   const [loading, setLoading] = useState(true);
-  // UI state to show form (CREATE or EDIT)
   const [showForm, setShowForm] = useState(false);
   const [editingTag, setEditingTag] = useState<Tag | null>(null);
 
@@ -24,21 +26,17 @@ function Tags() {
     })();
   }, []);
 
-  // CREATE
   const handleCreate = async (name: string, color: string) => {
     const newTag = await createTag({ name, color });
     setTags((prev) => [...prev, newTag]);
     setShowForm(false);
   };
 
-  // UPDATE
-  const handleUpdate = (id: string) => {
-    const tag = tags.find((t) => t.id === id) || null;
+  const handleUpdate = (id: string, tag: Tag) => {
     setEditingTag(tag);
     setShowForm(true);
   };
 
-  // SAVE UPDATE
   const saveUpdate = async (name: string, color: string) => {
     if (!editingTag) return;
     const updated = await updateTag(editingTag.id, {
@@ -51,7 +49,6 @@ function Tags() {
     setShowForm(false);
   };
 
-  // DELETE
   const handleDelete = async (id: string) => {
     if (!confirm("Delete tag?")) return;
     await deleteTag(id);
@@ -63,44 +60,79 @@ function Tags() {
     setShowForm(false);
   };
 
-  if (loading) return <p>Loading tags...</p>;
+  if (loading) {
+    return (
+      <main className="tags-page w-full h-full flex items-center justify-center">
+        <p
+          className="text-gray-600 font-medium text-lg"
+          style={{ fontFamily: "Inter, sans-serif" }}
+        >
+          Loading tags...
+        </p>
+      </main>
+    );
+  }
 
   return (
-    <div className="max-w-2xl mx-auto p-4">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-semibold">Tags</h2>
-        <button
-          onClick={() => {
-            setEditingTag(null);
-            setShowForm(true);
-          }}
-          className="px-3 py-1 bg-blue-600 text-white rounded"
-        >
-          Add New Tag
-        </button>
-      </div>
+    <main className="tags-page w-full h-full py-8 px-4 overflow-y-auto">
+      <div className="tags-page-container w-full max-w-[995px] mx-auto flex flex-col gap-8">
+        {/* Header */}
+        <header className="tags-header flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="header-text-wrapper">
+            <h1
+              className="tags-page-title text-gray-800 font-bold mb-1"
+              style={{ fontFamily: "DM Sans, sans-serif", fontSize: "40px" }}
+            >
+              Tags
+            </h1>
+            <p
+              className="tags-page-subtitle text-gray-600 font-normal text-base"
+              style={{ fontFamily: "Inter, sans-serif" }}
+            >
+              Organize your focus sessions
+            </p>
+          </div>
 
-      {showForm && (
-        <div className="mb-4">
-          <TagForm
-            initialName={editingTag?.name}
-            initialColor={editingTag?.color}
-            onSubmit={editingTag ? saveUpdate : handleCreate}
-            onCancel={handleCancel}
+          <button
+            onClick={() => {
+              setEditingTag(null);
+              setShowForm(true);
+            }}
+            className="add-new-tag-button inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#4F46E5] text-white font-semibold rounded-lg transition-all duration-300 hover:bg-[#4338CA] hover:shadow-lg active:scale-95"
+            type="button"
+            style={{ fontFamily: "Inter, sans-serif" }}
+          >
+            <Icon path={mdiPlus} size={0.9} />
+            Add a new tag
+          </button>
+        </header>
+
+        {/* Form */}
+        {showForm && (
+          <section className="tag-form-section">
+            <TagForm
+              initialName={editingTag?.name}
+              initialColor={editingTag?.color}
+              onSubmit={editingTag ? saveUpdate : handleCreate}
+              onCancel={handleCancel}
+            />
+          </section>
+        )}
+
+        {/* Tags List */}
+        <section className="tags-list-section">
+          <TagsList
+            tags={tags}
+            onCreate={() => {
+              setEditingTag(null);
+              setShowForm(true);
+            }}
+            onUpdate={handleUpdate}
+            onDelete={handleDelete}
           />
-        </div>
-      )}
-
-      <TagsList
-        tags={tags}
-        onCreate={() => {
-          setEditingTag(null);
-          setShowForm(true);
-        }}
-        onUpdate={handleUpdate}
-        onDelete={handleDelete}
-      />
-    </div>
+        </section>
+      </div>
+    </main>
   );
 }
 

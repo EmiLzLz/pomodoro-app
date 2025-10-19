@@ -1,4 +1,6 @@
+// Sidebar.tsx
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Icon from "@mdi/react";
 import {
   mdiTimerOutline,
@@ -10,7 +12,7 @@ import {
 interface MenuItem {
   icon: string;
   label: string;
-  id: string;
+  path: string;
 }
 
 const Sidebar: React.FC = () => {
@@ -18,10 +20,10 @@ const Sidebar: React.FC = () => {
   const [isMobileOpen, setIsMobileOpen] = useState<boolean>(false);
 
   const menuItems: MenuItem[] = [
-    { icon: mdiTimerOutline, label: "Timer", id: "timer" },
-    { icon: mdiViewDashboardOutline, label: "Dashboard", id: "dashboard" },
-    { icon: mdiTagOutline, label: "Tags", id: "tags" },
-    { icon: mdiHistory, label: "History", id: "history" },
+    { icon: mdiTimerOutline, label: "Timer", path: "/timer" },
+    { icon: mdiViewDashboardOutline, label: "Dashboard", path: "/dashboard" },
+    { icon: mdiTagOutline, label: "Tags", path: "/tags" },
+    { icon: mdiHistory, label: "History", path: "/history" },
   ];
 
   return (
@@ -58,11 +60,12 @@ const Sidebar: React.FC = () => {
       >
         <nav className="flex flex-col gap-6 w-full">
           {menuItems.map((item) => (
-            <a
-              key={item.id}
-              href={`#${item.id}`}
+            <Link
+              key={item.path}
+              to={item.path}
               className="sidebar-item flex items-center gap-3 group"
               aria-label={item.label}
+              onClick={() => setIsMobileOpen(false)}
             >
               <span
                 className="sidebar-icon-wrapper relative flex items-center justify-center min-w-[50px] w-[50px] h-[50px] flex-shrink-0 rounded-full transition-transform duration-300 group-hover:scale-110"
@@ -83,7 +86,7 @@ const Sidebar: React.FC = () => {
               >
                 {item.label}
               </span>
-            </a>
+            </Link>
           ))}
         </nav>
       </aside>
