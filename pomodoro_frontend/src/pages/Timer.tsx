@@ -59,9 +59,17 @@ function Timer() {
   useEffect(() => {
     if (sessionCompleted) {
       const saveSession = async () => {
+        const selectedTagObj = tags.find((t) => t.id === selectedTag);
+
+        if (!selectedTagObj) {
+          console.error("No tag selected");
+          clearSessionCompleted();
+          return;
+        }
+
         await createSession({
           duration: 25,
-          tag: selectedTag,
+          tag: selectedTagObj, // ← Objeto completo en lugar de string
           completedAt: new Date().toISOString(),
           type: mode,
           pomodoroCount,
@@ -73,6 +81,7 @@ function Timer() {
   }, [
     sessionCompleted,
     selectedTag,
+    tags, // ← Agregar tags a dependencias
     mode,
     pomodoroCount,
     clearSessionCompleted,

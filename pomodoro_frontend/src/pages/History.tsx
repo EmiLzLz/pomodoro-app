@@ -22,16 +22,16 @@ function History() {
   }, []);
 
   const filteredSessions = sessions.filter((session) => {
-    //filter by tag
-    if (selectedTag && session.tag !== selectedTag) return false;
+  //filter by tag
+  if (selectedTag && session.tag.id !== selectedTag) return false;
 
-    //filter by date range
-    const sessionDate = new Date(session.completedAt);
-    if (dateRange.startDate && sessionDate < dateRange.startDate) return false;
-    if (dateRange.endDate && sessionDate > dateRange.endDate) return false;
+  //filter by date range
+  const sessionDate = new Date(session.completedAt);
+  if (dateRange.startDate && sessionDate < dateRange.startDate) return false;
+  if (dateRange.endDate && sessionDate > dateRange.endDate) return false;
 
-    return true;
-  });
+  return true;
+});
 
   return (
     <div>

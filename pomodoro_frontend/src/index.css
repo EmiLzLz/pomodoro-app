@@ -32,3 +32,107 @@
 .animate-blob {
   animation: blob 20s ease-in-out infinite;
 }
+
+/* Hisotry Table*/
+.sessions-list-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.sessions-list-container {
+  width: 100%;
+  max-width: 1100px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(45px) saturate(180%);
+  -webkit-backdrop-filter: blur(45px) saturate(180%);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 2rem;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  transition: all 0.3s ease;
+}
+
+.sessions-list-container:hover {
+  box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.2);
+  transform: translateY(-2px);
+}
+
+.sessions-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.sessions-table-header th {
+  font-family: "DM Sans", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.85);
+  text-align: left;
+  padding: 1rem 1.5rem;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.table-row {
+  transition: all 0.25s ease;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.table-row:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.01);
+}
+
+.table-row:last-child {
+  border-bottom: none;
+}
+
+.table-cell {
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.75);
+  padding: 1.25rem 1.5rem;
+  transition: color 0.2s ease;
+}
+
+.table-row:hover .table-cell {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.tag-content {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.tag-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.table-row:hover .tag-indicator {
+  transform: scale(1.2);
+}
+
+@media (max-width: 768px) {
+  .sessions-list-container {
+    padding: 1rem;
+    border-radius: 12px;
+  }
+
+  .sessions-table-header th {
+    font-size: 16px;
+    padding: 0.75rem 1rem;
+  }
+
+  .table-cell {
+    font-size: 14px;
+    padding: 1rem;
+  }
+}

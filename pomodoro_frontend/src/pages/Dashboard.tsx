@@ -25,14 +25,15 @@ function Dashboard() {
   }, []);
 
   const pieData = sessions.reduce((acc, session) => {
-    const existing = acc.find((item) => item.name === session.tag);
+    const tagName = session.tag.name; 
+    const existing = acc.find((item) => item.name === tagName);
     if (existing) existing.value++;
-    else acc.push({ name: session.tag, value: 1 });
+    else acc.push({ name: tagName, value: 1 });
     return acc;
   }, [] as { name: string; value: number }[]);
 
   const barData = sessions.reduce((acc, session) => {
-    const date = session.completedAt.split('T')[0]; 
+    const date = session.completedAt.split("T")[0];
     const existing = acc.find((item) => item.date === date);
     if (existing) existing.count++;
     else acc.push({ date, count: 1 });
