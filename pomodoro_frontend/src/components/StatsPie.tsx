@@ -1,15 +1,21 @@
 import React from "react";
-import { PieChart, Pie, Tooltip, Cell, ResponsiveContainer } from "recharts";
+import {
+  PieChart,
+  Pie,
+  Tooltip,
+  Cell,
+  ResponsiveContainer,
+  Legend,
+} from "recharts";
 
-//Colors from the piechart
 const COLORS = [
-  "#0088FE",
-  "#00C49F",
-  "#FFBB28",
-  "#FF8042",
-  "#8884d8",
-  "#82ca9d",
-  "#ffc658",
+  "#8B5CF6", // Purple
+  "#FF6B9D", // Pink/Red
+  "#06B6D4", // Cyan
+  "#F59E0B", // Orange
+  "#3B82F6", // Blue
+  "#10B981", // Green
+  "#F97316", // Deep Orange
 ];
 
 interface PieChartProps {
@@ -19,31 +25,49 @@ interface PieChartProps {
 
 function StatsPie({ data, title }: PieChartProps) {
   return (
-    <div>
-      <h3 style={{ textAlign: "center" }}>{title}</h3>
-      <ResponsiveContainer width="100%" height={400}>
-        <PieChart>
-          <Pie
-            data={data}
-            dataKey="value"
-            nameKey="name"
-            cx="50%"
-            cy="50%"
-            outerRadius={150}
-            fill="#8884d8"
-            label
-          >
-            {data.map((entry, index) => (
-              <Cell
-                key={`cell-${entry.name}`}
-                fill={COLORS[index % COLORS.length]}
+    <>
+      <article className="stats-pie-container rounded-2xl p-6 shadow-lg">
+        <header className="mb-4">
+          <h3 className="text-xl font-bold text-gray-800 text-center m-0">
+            {title}
+          </h3>
+        </header>
+
+        <div className="w-full">
+          <ResponsiveContainer width="100%" height={350}>
+            <PieChart>
+              <Pie
+                data={data}
+                dataKey="value"
+                nameKey="name"
+                cx="50%"
+                cy="50%"
+                outerRadius="70%"
+                fill="#8884d8"
+                label
+                labelLine={true}
+              >
+                {data.map((entry, index) => (
+                  <Cell
+                    key={`cell-${entry.name}-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Pie>
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "rgba(255, 255, 255, 0.95)",
+                  border: "1px solid rgba(0, 0, 0, 0.1)",
+                  borderRadius: "8px",
+                  padding: "8px 12px",
+                }}
               />
-            ))}
-          </Pie>
-          <Tooltip />
-        </PieChart>
-      </ResponsiveContainer>
-    </div>
+              <Legend verticalAlign="bottom" height={36} iconType="circle" />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+      </article>
+    </>
   );
 }
 

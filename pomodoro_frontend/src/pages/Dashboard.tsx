@@ -8,7 +8,6 @@ import {
   getWeekStats,
 } from "../services/statsService";
 import { getSessions } from "../services/sessionService";
-import { Apple, Search, Sun } from "lucide-react";
 import type { Session } from "../types/Session";
 
 function Dashboard() {
@@ -24,50 +23,54 @@ function Dashboard() {
     getSessions().then(setSessions);
   }, []);
 
-  const pieData = sessions.reduce((acc, session) => {
-    const tagName = session.tag.name; 
-    const existing = acc.find((item) => item.name === tagName);
-    if (existing) existing.value++;
-    else acc.push({ name: tagName, value: 1 });
-    return acc;
-  }, [] as { name: string; value: number }[]);
+  const pieData = sessions
+    .filter((session) => session.completedAt)
+    .reduce((acc, session) => {
+      const tagName = session.tag.name;
 
-  const barData = sessions.reduce((acc, session) => {
-    const date = session.completedAt.split("T")[0];
-    const existing = acc.find((item) => item.date === date);
-    if (existing) existing.count++;
-    else acc.push({ date, count: 1 });
-    return acc;
-  }, [] as { date: string; count: number }[]);
+      const existing = acc.find((item) => item.name === tagName);
+      if (existing) existing.value++;
+      else acc.push({ name: tagName, value: 1 });
+      return acc;
+    }, [] as { name: string; value: number }[]);
+
+  const barData = sessions
+    .filter((session) => session.completedAt)
+    .reduce((acc, session) => {
+      const date = session.completedAt!.split("T")[0];
+      const existing = acc.find((item) => item.date === date);
+      if (existing) existing.count++;
+      else acc.push({ date, count: 1 });
+      return acc;
+    }, [] as { date: string; count: number }[]);
 
   return (
-    <div className="dashboard-container">
-      <div className="cards-pie">
-        <div className="col col-1">
-          <StatsCard
-            icon={<Sun />}
-            title="Your daily stats"
-            value={todayStats}
-          />
-          <StatsCard
-            icon={<Apple />}
-            title="Your weekly stats"
-            value={WeekStats}
-          />
-        </div>
-        <div className="col col-2">
-          <StatsCard
-            icon={<Search />}
-            title="Your Streak"
-            value={streakStats}
-          />
+    <main className="dashboard-container w-full flex justify-center py-12 px-4">
+      <div className="dashboard-content w-full max-w-[1100px]">
+        {/* Header */}
+        <header className="dashboard-header text-center mb-12">
+          <h1 className="text-5xl font-bold text-gray-900 mb-2">Dashboard</h1>
+          <p className="text-xl font-normal text-gray-700">
+            Your productivity at a glance
+          </p>
+        </header>
+
+        {/* Stats Cards */}
+        <section className="stats-cards-section mb-12">
+          <div className="flex flex-wrap justify-center gap-8 lg:justify-between">
+            <StatsCard title="Your daily stats" value={todayStats} />
+            <StatsCard title="Your weekly stats" value={WeekStats} />
+            <StatsCard title="Your Streak" value={streakStats} />
+          </div>
+        </section>
+
+        {/* Charts */}
+        <section className="charts-section grid grid-cols-1 lg:grid-cols-2 gap-8">
           <StatsPie data={pieData} title="Tags distributtion" />
-        </div>
+          <StatsBar data={barData} title="Completed Pomodoros" />
+        </section>
       </div>
-      <div className="chart">
-        <StatsBar data={barData} title="Completed Pomodoros" />
-      </div>
-    </div>
+    </main>
   );
 }
 
