@@ -23,9 +23,9 @@ export const createSession = async (req: Request, res: Response) => {
       id: uuidv4(),
       duration: req.body.duration,
       tag: req.body.tag,
-      completedAt: req.body.completed,
+      completedAt: req.body.completedAt,
       type: req.body.type,
-      pomodoroCount: req.body.count,
+      pomodoroCount: req.body.pomodoroCount,
     };
     sessions.push(newSession);
     await writeSessions(sessions);
