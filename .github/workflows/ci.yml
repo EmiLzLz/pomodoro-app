@@ -21,20 +21,20 @@ jobs:
       
       - name: Install backend deps
         run: |
-          cd backend
+          cd pomodoro_backend
           npm install
       
       - name: Run backend tests
         run: |
-          cd backend
+          cd pomodoro_backend
           npm run test
       
       - name: Install frontend deps
         run: |
-          cd frontend
+          cd pomodoro_frontend
           npm install
       
       - name: Run frontend tests
         run: |
-          cd frontend
+          cd pomodoro_frontend
           npm run test
