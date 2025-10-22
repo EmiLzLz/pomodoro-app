@@ -18,7 +18,7 @@ app.use("/sessions", sessionsRoutes);
 app.use("/tags", tagsRoutes);
 app.use("/stats", statsRoutes);
 
-app.get("/", (_req, res) => {
+app.get("/", (req, res) => {
   res.send("Hello World from Express and Typescript");
 });
 

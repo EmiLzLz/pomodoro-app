@@ -4,7 +4,7 @@ import { readSessions, writeSessions } from "../utils/sessionHandler.js";
 import { v4 as uuidv4 } from "uuid";
 
 //list all sessions
-export const allSessions = async (_req: Request, res: Response) => {
+export const allSessions = async (req: Request, res: Response) => {
   try {
     const sessions = await readSessions();
     res.status(200).json(sessions);

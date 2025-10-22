@@ -18,7 +18,7 @@ function isYesterday(date: Date, today: Date): Boolean {
   return isSameDay(date, yesterday);
 }
 
-export const getTodayPomodoros = async (_req: Request, res: Response) => {
+export const getTodayPomodoros = async (req: Request, res: Response) => {
   try {
     const sessions = await readSessions();
     const now = new Date();
@@ -39,7 +39,7 @@ export const getTodayPomodoros = async (_req: Request, res: Response) => {
   }
 };
 
-export const getWeekPomodoros = async (_req: Request, res: Response) => {
+export const getWeekPomodoros = async (req: Request, res: Response) => {
   try {
     const sessions = await readSessions();
     const now = new Date();
@@ -65,7 +65,7 @@ export const getWeekPomodoros = async (_req: Request, res: Response) => {
   }
 };
 
-export const getStreak = async (_req: Request, res: Response) => {
+export const getStreak = async (req: Request, res: Response) => {
   try {
     const sessions = await readSessions();
     const now = new Date();
