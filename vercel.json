@@ -2,14 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "pomodoro_backend/src/index.ts",
+      "src": "pomodoro_backend/dist/index.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "pomodoro_backend/src/index.ts"
+      "dest": "pomodoro_backend/dist/index.js"
     }
   ]
 }
