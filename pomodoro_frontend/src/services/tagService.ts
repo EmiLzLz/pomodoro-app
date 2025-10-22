@@ -1,6 +1,6 @@
 import type { Tag } from "../types/Tag";
 
-const url = import.meta.env.VITE_API_URL + "tags";
+const url = import.meta.env.VITE_API_URL + "/tags";
 
 export const getTags = async (): Promise<Tag[]> => {
   try {
