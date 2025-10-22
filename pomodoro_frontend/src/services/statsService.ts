@@ -1,4 +1,4 @@
-const url = "http://localhost:8080/stats";
+const url = import.meta.env.VITE_API_URL + "/stats";
 
 export const getTodayStats = async (): Promise<{today:number}> => {
     try {
