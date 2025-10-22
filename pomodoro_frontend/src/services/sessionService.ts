@@ -1,6 +1,6 @@
 import type {Session} from "../types/Session";
 
-const url = import.meta.env.VITE_API_URL + "/sessions";
+const url = import.meta.env.VITE_API_URL + "sessions";
 
 export const getSessions = async (): Promise<Session[]> => {
   try {
