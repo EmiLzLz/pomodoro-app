@@ -65,7 +65,7 @@ export const getWeekPomodoros = async (req: Request, res: Response) => {
   }
 };
 
-export const getStreak = async (req: Request, res: Response) => {
+export const getStreak = async (_req: Request, res: Response) => {
   try {
     const sessions = await readSessions();
     const now = new Date();
@@ -84,6 +84,11 @@ export const getStreak = async (req: Request, res: Response) => {
       .map((dateStr) => new Date(dateStr))
       .sort((a, b) => b.getTime() - a.getTime());
 
+    // Si no hay fechas, retornar streak 0
+    if (uniqueDates.length === 0) {
+      return res.status(200).json({ streak: 0 });
+    }
+
     if (!isSameDay(uniqueDates[0], now) && !isYesterday(uniqueDates[0], now)) {
       return res.status(200).json({ streak: 0 });
     }
@@ -100,9 +105,9 @@ export const getStreak = async (req: Request, res: Response) => {
       }
     }
 
-    return res.status(200).json(streak);
+    return res.status(200).json({ streak }); // Agregar { } aquí también
   } catch (error) {
     console.log("Streak is not able", error);
-    res.status(500).send();
+    return res.status(500).send(); // Agregar return aquí
   }
 };
