@@ -9,32 +9,32 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      
+
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: "18"
-      
+          cache: "npm"
+          cache-dependency-path: |
+            pomodoro_backend/package-lock.json
+            pomodoro_frontend/package-lock.json
+
       - name: Install backend deps
-        run: |
-          cd pomodoro_backend
-          npm install
-      
+        working-directory: ./pomodoro_backend
+        run: npm ci
+
       - name: Run backend tests
-        run: |
-          cd pomodoro_backend
-          npx vitest run
-      
+        working-directory: ./pomodoro_backend
+        run: npm test
+
       - name: Install frontend deps
-        run: |
-          cd pomodoro_frontend
-          npm install
-      
+        working-directory: ./pomodoro_frontend
+        run: npm ci
+
       - name: Run frontend tests
-        run: |
-          cd pomodoro_frontend
-          npx vitest run
+        working-directory: ./pomodoro_frontend
+        run: npm test
