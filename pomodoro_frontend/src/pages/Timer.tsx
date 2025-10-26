@@ -96,8 +96,7 @@ function Timer() {
       <div className="timer-content-wrapper w-full max-w-2xl flex flex-col items-center gap-6">
         {/* Pomodoro Count */}
         <h1
-          className="pomodoro-count-title text-gray-800 font-semibold"
-          style={{ fontSize: "28px", fontFamily: "Inter, sans-serif" }}
+          className="pomodoro-count-title text-gray-800 font-semibold text-3xl"
         >
           Pomodoro {pomodoroCount} of 4
         </h1>
