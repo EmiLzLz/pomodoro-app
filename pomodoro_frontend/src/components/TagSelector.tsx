@@ -83,7 +83,7 @@ const TagSelector: React.FC<TagSelectorProps> = ({
             />
 
             <ul
-              className="tag-selector-dropdown absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded shadow-lg z-20 max-h-60 overflow-y-auto"
+              className="tag-selector-dropdown absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded shadow-lg z-20 max-h-20 overflow-y-auto"
               role="listbox"
             >
               {tags.length > 0 ? (
