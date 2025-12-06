@@ -15,12 +15,6 @@ A full-stack productivity application built with React, TypeScript, and Express 
 ![Tags](./docs/images/pomodoro_tags.png)
 ![History](./docs/images/pomodoro_history.png)
 
-<!-- 
-Example structure:
-![Timer View](./screenshots/timer.png)
-![Dashboard](./screenshots/dashboard.png)
-![Tags Management](./screenshots/tags.png)
--->
 
 ---
 
