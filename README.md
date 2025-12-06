@@ -10,10 +10,10 @@ A full-stack productivity application built with React, TypeScript, and Express 
 
 ## 📸 Screenshots
 
-![Home](./screenshots/pomodoro_home.png)
-![Dashboard](./screenshots/pomodoro_dashboard.png)
-![Tags](./screenshots/pomodoro_tags.png)
-![History](./screenshots/pomodoro_history.png)
+![Home](./docs/images/pomodoro_home.png)
+![Dashboard](./docs/images/pomodoro_dashboard.png)
+![Tags](./docs/images/pomodoro_tags.png)
+![History](./docs/images/pomodoro_history.png)
 
 <!-- 
 Example structure:
